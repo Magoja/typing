@@ -7,32 +7,27 @@ use crossterm::{
 };
 
 fn main() {
-    // Clear the screen
-    execute!(stdout(), Clear(ClearType::All)).unwrap();
-    
-    // Change text color to Blue and print a message
-    execute!(
-        stdout(),
-        SetForegroundColor(Color::Blue),
-        Print("Tippy-Toes Typing! (press enter)\n"),
-        ResetColor,
-    ).unwrap();
-
-    // Wait for the user to press any key
+    clear();
+    write(Color::Blue, "Tippy-Toes Typing! (press enter)\n");
     wait_for_key_press();
+    clear();
+    write(Color::Yellow, "Press ENTER to start typing...\n");
 
-    // Clear the screen again
+    // TODO:
+    // code the scond page of tippy-toes typing.
+}
+
+fn clear() {
     execute!(stdout(), Clear(ClearType::All)).unwrap();
+}
 
-    // Change text color to Yellow and print another message
+fn write(color: Color, text: &str) {
     execute!(
         stdout(),
-        SetForegroundColor(Color::Yellow),
-        Print("Press ENTER to start typing..."),
+        SetForegroundColor(color),
+        Print(text),
         ResetColor,
     ).unwrap();
-
-    // Further code execution can continue here
 }
 
 fn wait_for_key_press() {
