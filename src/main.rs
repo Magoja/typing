@@ -8,13 +8,22 @@ use crossterm::{
 
 fn main() {
     clear();
+    playground();
+    // show_title_screen();
+    // TODO:
+    // code the scond page of tippy-toes typing.
+}
+
+fn playground() {
+    // This is your playground
+    write(Color::Blue, "Wahahahah\n");
+}
+
+fn show_title_screen() {
     write(Color::Blue, "Tippy-Toes Typing! (press enter)\n");
     wait_for_key_press();
     clear();
     write(Color::Yellow, "Press ENTER to start typing...\n");
-
-    // TODO:
-    // code the scond page of tippy-toes typing.
 }
 
 fn clear() {
