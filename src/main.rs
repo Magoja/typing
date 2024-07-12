@@ -1,4 +1,4 @@
-use std::io::{stdout};
+use std::io::{stdout, Write};
 use crossterm::{
     event::{KeyCode, Event, read},
     execute,
@@ -8,24 +8,28 @@ use crossterm::{
 
 fn main() {
     clear();
+    show_title_screen();
     playground();
-    // show_title_screen();
     // TODO:
-    // code the scond page of tippy-toes typing.
-}
-
-fn playground() {
-    // This is your playground
-    write(Color::Blue, "Wahahahah\n");
+    // code the second page of tippy-toes typing.
 }
 
 fn show_title_screen() {
     write(Color::Blue, "Tippy-Toes Typing! (press enter)\n");
     wait_for_key_press();
     clear();
-    write(Color::Yellow, "Press ENTER to start typing...\n");
+    write(Color::Yellow, "Press ENTER to start game...\n");
+    wait_for_key_press();
+    clear();
 }
 
+fn playground() {
+    // This is your playground
+    write(Color::Blue, "Hello random person who wants to type properly (press enter)\n");
+    wait_for_key_press();
+    clear();
+    write(Color::Yellow, "\n");
+}
 fn clear() {
     execute!(stdout(), Clear(ClearType::All)).unwrap();
 }
@@ -40,17 +44,18 @@ fn write(color: Color, text: &str) {
 }
 
 fn wait_for_key_press() {
-    let event = read().unwrap();
-    // Handle the event
-    match event {
-        Event::Key(key_event) => {
+    loop {
+        if let Ok(Event::Key(key_event)) = read() {
             match key_event.code {
-                KeyCode::Char(c) => println!("Character pressed: {}", c),
-                KeyCode::Enter => println!("Enter key pressed"),
-                KeyCode::Esc => println!("Escape key pressed"),
-                _ => println!("Other key pressed"),
+                KeyCode::Enter => {
+                    println!("Enter key pressed");
+                    break;
+                }
+                _ => {
+                    // Handle other key presses if needed
+                    println!("Other key pressed");
+                }
             }
         }
-        _ => println!("Other event"),
-    }
+    } 
 }
